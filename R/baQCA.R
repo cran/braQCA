@@ -1,7 +1,7 @@
 #' Boostrapped Assessment
 #' 
 #' This function performs the the Bootstrapped Assessment for QCA (baQCA) on a given QCA model object.
-#' @import QCAGUI bootstrap
+#' @import QCA QCAGUI bootstrap
 #' @importFrom graphics hist
 #' @importFrom stats glm plogis predict quantile
 #' @importFrom utils flush.console
