@@ -31,8 +31,8 @@ baQCA<-function(mod, sim=2000, include=c(""), row.dom=F, omit=c(), dir.exp=c() )
   ptm <- proc.time()
   
   nconf<-rownames(mod$IC$incl.cov) #names of the configuration(s)
-  incl.cut1<-mod$tt$options$incl.cut1 #consistency score of the configuration 
-  incl.cut0<-mod$tt$options$incl.cut0 #consistency score of the configuration 
+  incl.cut1<-mod$tt$options$incl.cut #consistency score of the configuration 
+  incl.cut0<-mod$tt$options$incl.cut #consistency score of the configuration 
   n.cut<-mod$tt$options$n.cut  #configurational n 
   pop<-dim(mod[[1]]$initial.data)[1] #population size
   relation<-mod$relation
