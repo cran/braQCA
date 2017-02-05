@@ -79,7 +79,8 @@ for (j in 1:sim) {
       ##########parsimonious
       
       parsimonious <- tryCatch( #trap error
-        eqmcc(s.qca.data,  outcome=c("OUT"),  n.cut=n, incl.cut1=inclcut[k], include = "?", neg.out=neg.out,
+        #eqmcc(s.qca.data,  outcome=c("OUT"),  n.cut=n, incl.cut1=inclcut[k], include = "?", neg.out=neg.out,
+        eqmcc(s.qca.data,  outcome=c("OUT"),  n.cut=n, incl.cut=inclcut[k], include = "?", neg.out=neg.out,
               conditions= c(names(s.qca.data[,!(names(s.qca.data) %in% 'OUT')])),details = TRUE, show.cases = TRUE),
         error=function(e) e
       )
@@ -107,7 +108,8 @@ for (j in 1:sim) {
       data[kk,4]<-pop
       
       complex <- tryCatch( #trap error
-        eqmcc(s.qca.data,  outcome=c("OUT"),  n.cut=n, incl.cut1=inclcut[k], neg.out=neg.out,
+        #eqmcc(s.qca.data,  outcome=c("OUT"),  n.cut=n, incl.cut1=inclcut[k], neg.out=neg.out,
+        eqmcc(s.qca.data,  outcome=c("OUT"),  n.cut=n, incl.cut=inclcut[k], neg.out=neg.out,
               conditions = c(names(s.qca.data[,!(names(s.qca.data) %in% 'OUT')])), details = TRUE, show.cases = TRUE),
         error=function(e) e
       )
@@ -124,7 +126,8 @@ for (j in 1:sim) {
       }
       
       
-      captureError<-tryCatch(truthTable(s.qca.data,  outcome=c("OUT"),  n.cut=10, incl.cut1=inclcut[k], include = "?", neg.out=neg.out,
+      #captureError<-tryCatch(truthTable(s.qca.data,  outcome=c("OUT"),  n.cut=10, incl.cut1=inclcut[k], include = "?", neg.out=neg.out,
+      captureError<-tryCatch(truthTable(s.qca.data,  outcome=c("OUT"),  n.cut=10, incl.cut=inclcut[k], include = "?", neg.out=neg.out,
                                         conditions= c(names(s.qca.data[,!(names(s.qca.data) %in% 'OUT')])),details = TRUE, show.cases = TRUE)[[1]][,1], error=function(e) e)
       
       # if (grepl("replacement has 0 items",captureError)){data$OUT[kk]<-NA}

@@ -34,6 +34,7 @@ C<-rallies$C
 U<-rallies$U
 
 qca.data<-data.frame(P,R,C,U)
+rownames(qca.data)<-rownames(rallies)
 truth<-truthTable(qca.data,outcome="P",sort.by="incl",incl.cut1=0.7,show.cases=TRUE)
 truth
 mod1 <- eqmcc(truth,details=TRUE,show.cases=TRUE)

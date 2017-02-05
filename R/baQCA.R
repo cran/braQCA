@@ -20,6 +20,7 @@
 #' U<-rallies$U
 #' 
 #' qca.data<-data.frame(P,R,C,U)
+#' rownames(qca.data)<-rownames(rallies)
 #' truth<-truthTable(qca.data,outcome="P",sort.by="incl",incl.cut1=0.7,show.cases=TRUE)
 #' truth
 #' mod1 <- eqmcc(truth,details=TRUE,show.cases=TRUE)
@@ -31,8 +32,9 @@ baQCA<-function(mod, sim=2000, include=c(""), row.dom=F, omit=c(), dir.exp=c() )
   ptm <- proc.time()
   
   nconf<-rownames(mod$IC$incl.cov) #names of the configuration(s)
-  incl.cut1<-mod$tt$options$incl.cut #consistency score of the configuration 
-  incl.cut0<-mod$tt$options$incl.cut #consistency score of the configuration 
+  #incl.cut1<-mod$tt$options$incl.cut #consistency score of the configuration 
+  #incl.cut0<-mod$tt$options$incl.cut #consistency score of the configuration 
+  incl.cut<-mod$tt$options$incl.cut #consistency score of the configuration 
   n.cut<-mod$tt$options$n.cut  #configurational n 
   pop<-dim(mod[[1]]$initial.data)[1] #population size
   relation<-mod$relation
@@ -82,7 +84,9 @@ baQCA<-function(mod, sim=2000, include=c(""), row.dom=F, omit=c(), dir.exp=c() )
   }
   
   suppressWarnings(confList <- sapply(s.qca.data, function(x){tryCatch( #trap error
-    eqmcc(x,  outcome=c("OUT"),  n.cut=n.cut, incl.cut1=incl.cut1, incl.cut0=incl.cut0, neg.out=neg.out, relation=relation, explain=mod$options$explain,
+    #eqmcc(x,  outcome=c("OUT"), n.cut=n.cut, incl.cut1=incl.cut1, incl.cut0=incl.cut0, neg.out=neg.out, relation=relation, explain=mod$options$explain,
+          #conditions= c(names(x[,!(names(x) %in% 'OUT')]))),
+    eqmcc(x,  outcome=c("OUT"), n.cut=n.cut, incl.cut=incl.cut, neg.out=neg.out, relation=relation, explain=mod$options$explain,
           conditions= c(names(x[,!(names(x) %in% 'OUT')]))),
     error=function(e) e
   )}))
