@@ -1,7 +1,7 @@
 #' QCA Case Difference
 #' 
 #' Provides a data frame of all cases removed from the final QCA model object, after applying recommendations from brQCA.
-#' @import QCAGUI bootstrap 
+#' @import QCA bootstrap 
 #' @importFrom dplyr filter select count %>% n
 #' @param x name of one QCA model object.
 #' @param y name of a second QCA model object.
@@ -17,11 +17,11 @@
 #' qca.data<-data.frame(P,R,C,B)
 #' rownames(qca.data)<-rownames(rallies)
 #' truth<-truthTable(qca.data,outcome="P",sort.by="incl",incl.cut1=0.2,show.cases=TRUE,n.cut=1)
-#' mod1<-eqmcc(truth,details=TRUE,show.cases=TRUE)
+#' mod1<-minimize(truth,details=TRUE,show.cases=TRUE)
 #' mod1
 #' 
 #' truth2<-truthTable(qca.data,outcome="P",sort.by="incl",incl.cut1=0.7,show.cases=TRUE,n.cut=3)
-#' mod2<-eqmcc(truth2,details=TRUE,show.cases=TRUE)
+#' mod2<-minimize(truth2,details=TRUE,show.cases=TRUE)
 #' mod2
 #' 
 #' QCAdiff(mod1,mod2,show=FALSE)

@@ -1,7 +1,7 @@
 #' Configuration Table
 #' 
 #' Internal function; calculates via logistic regression the output of the Bootstrapped Robustness Recommendation
-#' @import QCAGUI bootstrap
+#' @import QCA bootstrap
 #' @importFrom graphics hist
 #' @importFrom stats glm plogis predict quantile
 #' @importFrom utils flush.console

@@ -1,7 +1,7 @@
 #' Simulation Application
 #' 
 #' Internal function to calculate the Bootstrapped Recommendation.
-#' @import QCAGUI bootstrap
+#' @import QCA bootstrap
 #' @importFrom graphics hist
 #' @importFrom stats glm plogis predict quantile
 #' @importFrom utils flush.console
@@ -12,7 +12,7 @@
 #' @param ncut configurational n levels for inclusion. Default set to \code{ncut=2}.
 #' @param type type of QCA application, \code{"crisp"} or \code{"fuzzy"} sets. Default set to \code{type = "crisp"}.
 #' @param inclcut minimum sufficiency score for inclusion. Default set to \code{inclcut=""}.
-#' @param neg.out [from QCAGUI package] ``Logical, use negation of outcome (ignored if data is a truth table object).'' Default set to \code{neg.out=F}.
+#' @param neg.out [from QCA package] ``Logical, use negation of outcome (ignored if data is a truth table object).'' Default set to \code{neg.out=F}.
 #' @param verbose prints the system time used to run the simulation and the percent complete. Default set to \code{verbose=T}.
 #' @return Simulation information later passed on to conf.table.
 #' @export
@@ -79,8 +79,8 @@ for (j in 1:sim) {
       ##########parsimonious
       
       parsimonious <- tryCatch( #trap error
-        #eqmcc(s.qca.data,  outcome=c("OUT"),  n.cut=n, incl.cut1=inclcut[k], include = "?", neg.out=neg.out,
-        eqmcc(s.qca.data,  outcome=c("OUT"),  n.cut=n, incl.cut=inclcut[k], include = "?", neg.out=neg.out,
+        #minimize(s.qca.data,  outcome=c("OUT"),  n.cut=n, incl.cut1=inclcut[k], include = "?", neg.out=neg.out,
+        minimize(s.qca.data,  outcome=c("OUT"),  n.cut=n, incl.cut=inclcut[k], include = "?", neg.out=neg.out,
               conditions= c(names(s.qca.data[,!(names(s.qca.data) %in% 'OUT')])),details = TRUE, show.cases = TRUE),
         error=function(e) e
       )
@@ -108,8 +108,8 @@ for (j in 1:sim) {
       data[kk,4]<-pop
       
       complex <- tryCatch( #trap error
-        #eqmcc(s.qca.data,  outcome=c("OUT"),  n.cut=n, incl.cut1=inclcut[k], neg.out=neg.out,
-        eqmcc(s.qca.data,  outcome=c("OUT"),  n.cut=n, incl.cut=inclcut[k], neg.out=neg.out,
+        #minimize(s.qca.data,  outcome=c("OUT"),  n.cut=n, incl.cut1=inclcut[k], neg.out=neg.out,
+        minimize(s.qca.data,  outcome=c("OUT"),  n.cut=n, incl.cut=inclcut[k], neg.out=neg.out,
               conditions = c(names(s.qca.data[,!(names(s.qca.data) %in% 'OUT')])), details = TRUE, show.cases = TRUE),
         error=function(e) e
       )

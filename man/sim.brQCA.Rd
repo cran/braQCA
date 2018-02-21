@@ -22,7 +22,7 @@ sim.brQCA(qca.data, outcome = "OUT", conditions = c(""), sim = 10,
 
 \item{inclcut}{minimum sufficiency score for inclusion. Default set to \code{inclcut=""}.}
 
-\item{neg.out}{[from QCAGUI package] ``Logical, use negation of outcome (ignored if data is a truth table object).'' Default set to \code{neg.out=F}.}
+\item{neg.out}{[from QCA package] ``Logical, use negation of outcome (ignored if data is a truth table object).'' Default set to \code{neg.out=F}.}
 
 \item{verbose}{prints the system time used to run the simulation and the percent complete. Default set to \code{verbose=T}.}
 }
@@ -32,4 +32,3 @@ Simulation information later passed on to conf.table.
 \description{
 Internal function to calculate the Bootstrapped Recommendation.
 }
-

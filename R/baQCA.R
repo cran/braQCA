@@ -1,16 +1,16 @@
 #' Boostrapped Assessment
 #' 
 #' This function performs the the Bootstrapped Assessment for QCA (baQCA) on a given QCA model object.
-#' @import QCA QCAGUI bootstrap
+#' @import QCA bootstrap
 #' @importFrom graphics hist
 #' @importFrom stats glm plogis predict quantile
 #' @importFrom utils flush.console
-#' @param mod name of the QCA eqmcc model object.
+#' @param mod name of the QCA eqmcc/minimize model object.
 #' @param sim the number of simulations the baQCA function should run. Default set to \code{sim=2000}.
-#' @param include [from QCAGUI package] ``A vector of additional output function values to be included in the minimization.'' Default set to \code{include=c("")}.
-#' @param row.dom [from QCAGUI package] ``Logical, impose row dominance as constraint on solution to eliminate dominated inessential prime implicants.'' Default set to \code{F}.
-#' @param omit [from QCAGUI package] ``A vector of configuration index values or matrix of configurations to be omitted from minimization.'' Default set to \code{omit=c()}.
-#' @param dir.exp [from QCAGUI package] ``A vector of directional expectations for deriving intermediate solutions.'' Default set to \code{dir.exp=c()}.
+#' @param include [from QCA package] ``A vector of additional output function values to be included in the minimization.'' Default set to \code{include=c("")}.
+#' @param row.dom [from QCA package] ``Logical, impose row dominance as constraint on solution to eliminate dominated inessential prime implicants.'' Default set to \code{F}.
+#' @param omit [from QCA package] ``A vector of configuration index values or matrix of configurations to be omitted from minimization.'' Default set to \code{omit=c()}.
+#' @param dir.exp [from QCA package] ``A vector of directional expectations for deriving intermediate solutions.'' Default set to \code{dir.exp=c()}.
 #' @return After some time, this function returns the probability that the data will return a random result given the parameters set by the researcher in the model (configurational n threshold, consistency score threshold, etc), as well a confidence interval around this value. This value is interpreted similarly to a p-value, i.e. a .05 value coincides with a 95\% "confidence level." 
 #' @examples 
 #' data(rallies)
@@ -23,7 +23,7 @@
 #' rownames(qca.data)<-rownames(rallies)
 #' truth<-truthTable(qca.data,outcome="P",sort.by="incl",incl.cut1=0.7,show.cases=TRUE)
 #' truth
-#' mod1 <- eqmcc(truth,details=TRUE,show.cases=TRUE)
+#' mod1 <- minimize(truth,details=TRUE,show.cases=TRUE)
 #' mod1
 #' 
 #' baQCA(mod1,sim=5) 
@@ -84,9 +84,9 @@ baQCA<-function(mod, sim=2000, include=c(""), row.dom=F, omit=c(), dir.exp=c() )
   }
   
   suppressWarnings(confList <- sapply(s.qca.data, function(x){tryCatch( #trap error
-    #eqmcc(x,  outcome=c("OUT"), n.cut=n.cut, incl.cut1=incl.cut1, incl.cut0=incl.cut0, neg.out=neg.out, relation=relation, explain=mod$options$explain,
+    #minimize(x,  outcome=c("OUT"), n.cut=n.cut, incl.cut1=incl.cut1, incl.cut0=incl.cut0, neg.out=neg.out, relation=relation, explain=mod$options$explain,
           #conditions= c(names(x[,!(names(x) %in% 'OUT')]))),
-    eqmcc(x,  outcome=c("OUT"), n.cut=n.cut, incl.cut=incl.cut, neg.out=neg.out, relation=relation, explain=mod$options$explain,
+    minimize(x,  outcome=c("OUT"), n.cut=n.cut, incl.cut=incl.cut, neg.out=neg.out, relation=relation, explain=mod$options$explain,
           conditions= c(names(x[,!(names(x) %in% 'OUT')]))),
     error=function(e) e
   )}))
