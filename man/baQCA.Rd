@@ -4,8 +4,14 @@
 \alias{baQCA}
 \title{Boostrapped Assessment}
 \usage{
-baQCA(mod, sim = 2000, include = c(""), row.dom = F, omit = c(),
-  dir.exp = c())
+baQCA(
+  mod,
+  sim = 2000,
+  include = c(""),
+  row.dom = FALSE,
+  omit = c(),
+  dir.exp = c()
+)
 }
 \arguments{
 \item{mod}{name of the QCA eqmcc/minimize model object.}
@@ -14,7 +20,7 @@ baQCA(mod, sim = 2000, include = c(""), row.dom = F, omit = c(),
 
 \item{include}{[from QCA package] ``A vector of additional output function values to be included in the minimization.'' Default set to \code{include=c("")}.}
 
-\item{row.dom}{[from QCA package] ``Logical, impose row dominance as constraint on solution to eliminate dominated inessential prime implicants.'' Default set to \code{F}.}
+\item{row.dom}{[from QCA package] ``Logical, impose row dominance as constraint on solution to eliminate dominated inessential prime implicants.'' Default set to \code{FALSE}.}
 
 \item{omit}{[from QCA package] ``A vector of configuration index values or matrix of configurations to be omitted from minimization.'' Default set to \code{omit=c()}.}
 
@@ -27,18 +33,11 @@ After some time, this function returns the probability that the data will return
 This function performs the the Bootstrapped Assessment for QCA (baQCA) on a given QCA model object.
 }
 \examples{
-data(rallies)
-P<-rallies$P
-R<-rallies$R
-C<-rallies$C
-U<-rallies$U
 
-qca.data<-data.frame(P,R,C,U)
+qca.data <- rallies[,8:13]
 rownames(qca.data)<-rownames(rallies)
-truth<-truthTable(qca.data,outcome="P",sort.by="incl",incl.cut1=0.7,show.cases=TRUE)
-truth
-mod1 <- minimize(truth,details=TRUE,show.cases=TRUE)
-mod1
+truth<-QCA::truthTable(qca.data,outcome="P",sort.by="incl",incl.cut1=0.85,n.cut=1,show.cases=TRUE)
+mod1 <- QCA::minimize(truth,details=TRUE,show.cases=TRUE)
 
-baQCA(mod1,sim=5) 
+baQCA(mod1,sim=2) 
 }

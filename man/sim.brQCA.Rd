@@ -4,8 +4,17 @@
 \alias{sim.brQCA}
 \title{Simulation Application}
 \usage{
-sim.brQCA(qca.data, outcome = "OUT", conditions = c(""), sim = 10,
-  ncut = 2, type = "crisp", inclcut = "", neg.out = F, verbose = T)
+sim.brQCA(
+  qca.data,
+  outcome = "OUT",
+  conditions = c(""),
+  sim = 10,
+  ncut = 2,
+  type = "crisp",
+  inclcut = "",
+  neg.out = FALSE,
+  verbose = TRUE
+)
 }
 \arguments{
 \item{qca.data}{the data frame of causal conditions.}
@@ -22,9 +31,9 @@ sim.brQCA(qca.data, outcome = "OUT", conditions = c(""), sim = 10,
 
 \item{inclcut}{minimum sufficiency score for inclusion. Default set to \code{inclcut=""}.}
 
-\item{neg.out}{[from QCA package] ``Logical, use negation of outcome (ignored if data is a truth table object).'' Default set to \code{neg.out=F}.}
+\item{neg.out}{[from QCA package] ``Logical, use negation of outcome (ignored if data is a truth table object).'' Default set to \code{neg.out=FALSE}.}
 
-\item{verbose}{prints the system time used to run the simulation and the percent complete. Default set to \code{verbose=T}.}
+\item{verbose}{prints the system time used to run the simulation and the percent complete. Default set to \code{verbose=TRUE}.}
 }
 \value{
 Simulation information later passed on to conf.table.

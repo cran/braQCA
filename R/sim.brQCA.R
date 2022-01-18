@@ -12,11 +12,11 @@
 #' @param ncut configurational n levels for inclusion. Default set to \code{ncut=2}.
 #' @param type type of QCA application, \code{"crisp"} or \code{"fuzzy"} sets. Default set to \code{type = "crisp"}.
 #' @param inclcut minimum sufficiency score for inclusion. Default set to \code{inclcut=""}.
-#' @param neg.out [from QCA package] ``Logical, use negation of outcome (ignored if data is a truth table object).'' Default set to \code{neg.out=F}.
-#' @param verbose prints the system time used to run the simulation and the percent complete. Default set to \code{verbose=T}.
+#' @param neg.out [from QCA package] ``Logical, use negation of outcome (ignored if data is a truth table object).'' Default set to \code{neg.out=FALSE}.
+#' @param verbose prints the system time used to run the simulation and the percent complete. Default set to \code{verbose=TRUE}.
 #' @return Simulation information later passed on to conf.table.
 #' @export
-sim.brQCA<-function(qca.data, outcome="OUT", conditions=c(""), sim=10, ncut=2, type="crisp", inclcut = "", neg.out=F, verbose=T){
+sim.brQCA<-function(qca.data, outcome="OUT", conditions=c(""), sim=10, ncut=2, type="crisp", inclcut = "", neg.out=FALSE, verbose=TRUE){
 ptm <- proc.time()
 
 if (all(conditions == c(""))) {
@@ -56,11 +56,11 @@ for (j in 1:sim) {
         
         for (i in 1:length(qca.data)){ #simulate random causal conditions
           prob<-c(sum(qca.data[,i]==0)/(dim(qca.data)[1]),sum(qca.data[,i]==1)/dim(qca.data)[1]) #match distributions of data set
-          s.qca.data[,i]<-sample(c(0,1),pop,prob=prob,replace=T)} 
+          s.qca.data[,i]<-sample(c(0,1),pop,prob=prob,replace=TRUE)} 
         
         #simulate random outcome variable
         prob<-c(sum(out==0)/(length(out)),sum(out==1)/length(out)) #match distributions of data set
-        s.qca.data$OUT<-sample(c(0,1),pop,prob=prob,replace=T)
+        s.qca.data$OUT<-sample(c(0,1),pop,prob=prob,replace=TRUE)
       }
       
       if (type == "fuzzy"){
@@ -68,12 +68,12 @@ for (j in 1:sim) {
         for (i in 1:length(qca.data)){ #simulate random causal conditions
           ranges<-seq(from=0.1, to=1, by=.1) #better way to do this? could do a for loop
           prob<-hist(qca.data[,i])[[2]]/dim(qca.data)[1]
-          s.qca.data[,i]<-sample(ranges,pop,prob=prob,replace=T)
+          s.qca.data[,i]<-sample(ranges,pop,prob=prob,replace=TRUE)
         } 
         
         #simulate random outcome variable
         prob<-hist(out)[[2]]/length(out)
-        s.qca.data$OUT<-sample(ranges,pop,prob=prob,replace=T)
+        s.qca.data$OUT<-sample(ranges,pop,prob=prob,replace=TRUE)
       }
       
       ##########parsimonious

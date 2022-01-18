@@ -4,8 +4,16 @@
 \alias{brQCA}
 \title{Bootstrapped Recommendation}
 \usage{
-brQCA(qca.data, outcome = "OUT", type = "crisp", inclcut = "", ncut = 2,
-  neg.out = F, sim = 10, verbose = T)
+brQCA(
+  qca.data,
+  outcome = "OUT",
+  type = "crisp",
+  inclcut = "",
+  ncut = 2,
+  neg.out = FALSE,
+  sim = 10,
+  verbose = TRUE
+)
 }
 \arguments{
 \item{qca.data}{the QCA data frame.}
@@ -18,11 +26,11 @@ brQCA(qca.data, outcome = "OUT", type = "crisp", inclcut = "", ncut = 2,
 
 \item{ncut}{configurational n levels to simulate. Can be altered to give options for the range of minimum to maximum \code{ncut} value that the truth table yields, by naming the the truth table object (e.g. \code{truth}) and calling the minimum and maximum number of cases, using \code{ncut=min(truth$tt$n):max(truth$tt$n)} identified by the truth table. Default set to \code{ncut=2}.}
 
-\item{neg.out}{[from QCA package] ``Logical, use negation of outcome (ignored if data is a truth table object).'' Default set to \code{neg.out=F}.}
+\item{neg.out}{[from QCA package] ``Logical, use negation of outcome (ignored if data is a truth table object).'' Default set to \code{neg.out=FALSE}.}
 
 \item{sim}{number of simulations to run for each combination of parameters. The final number of simulations is \code{length(inclcut)*length(ncut)*sim*2}. Default set to \code{sim=10}.}
 
-\item{verbose}{prints the system time used to run the simulation and the percent complete. Default set to \code{verbose=T}.}
+\item{verbose}{prints the system time used to run the simulation and the percent complete. Default set to \code{verbose=TRUE}.}
 }
 \value{
 Significance levels reached (.10,.05, .01, .001) when specifying a combination of inclcut, ncut, and neg.out in a QCA model.
@@ -31,18 +39,11 @@ Significance levels reached (.10,.05, .01, .001) when specifying a combination o
 Provides recommendations for consistency score and configurational n thresholds to attain a desired level of confidence in a QCA algorithm application.
 }
 \examples{
-data(rallies)
-P<-rallies$P
-R<-rallies$R
-C<-rallies$C
-U<-rallies$U
 
-qca.data<-data.frame(P,R,C,U)
+qca.data <- rallies[,8:13]
 rownames(qca.data)<-rownames(rallies)
-truth<-truthTable(qca.data,outcome="P",sort.by="incl",incl.cut1=0.7,show.cases=TRUE)
-truth
-mod1 <- minimize(truth,details=TRUE,show.cases=TRUE)
-mod1
+truth<-QCA::truthTable(qca.data,outcome="P",sort.by="incl",incl.cut1=0.85,n.cut=1,show.cases=TRUE)
+mod1 <- QCA::minimize(truth,details=TRUE,show.cases=TRUE)
 
-brQCA(qca.data,outcome="P",ncut=1,sim=1)
+brQCA(qca.data,outcome="P",ncut=5,sim=1)
 }
