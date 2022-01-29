@@ -19,7 +19,7 @@
 #' truth<-QCA::truthTable(qca.data,outcome="P",sort.by="incl",incl.cut1=0.85,n.cut=1,show.cases=TRUE)
 #' mod1 <- QCA::minimize(truth,details=TRUE,show.cases=TRUE)
 #' 
-#' baQCA(mod1,sim=2) 
+#' baQCA(mod1,sim=1) 
 #' @export
 baQCA<-function(mod, sim=2000, include=c(""), row.dom=FALSE, omit=c(), dir.exp=c() ){
   ptm <- proc.time()
@@ -90,7 +90,6 @@ baQCA<-function(mod, sim=2000, include=c(""), row.dom=FALSE, omit=c(), dir.exp=c
   pars<-rep(NA, sim)
   pars[sapply(confList, function(x) !inherits(x,"error"))]<-1
   pars[sapply(confList, function(x) inherits(x,"error"))]<-0
-  print(pars)
   #errs<-sapply(confList, function(x) grepl("Nothing to explain",x) |  grepl("All combinations have been included into analysis",x))
   #pars[sapply(errs, function(x) sum(x))==1]<-0
   

@@ -39,5 +39,5 @@ rownames(qca.data)<-rownames(rallies)
 truth<-QCA::truthTable(qca.data,outcome="P",sort.by="incl",incl.cut1=0.85,n.cut=1,show.cases=TRUE)
 mod1 <- QCA::minimize(truth,details=TRUE,show.cases=TRUE)
 
-baQCA(mod1,sim=2) 
+baQCA(mod1,sim=1) 
 }

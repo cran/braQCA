@@ -41,9 +41,8 @@ Provides recommendations for consistency score and configurational n thresholds 
 \examples{
 
 qca.data <- rallies[,8:13]
-rownames(qca.data)<-rownames(rallies)
-truth<-QCA::truthTable(qca.data,outcome="P",sort.by="incl",incl.cut1=0.85,n.cut=1,show.cases=TRUE)
-mod1 <- QCA::minimize(truth,details=TRUE,show.cases=TRUE)
 
+\dontrun{
 brQCA(qca.data,outcome="P",ncut=5,sim=1)
+}
 }

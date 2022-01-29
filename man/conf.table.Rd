@@ -4,7 +4,7 @@
 \alias{conf.table}
 \title{Configuration Table}
 \usage{
-conf.table(data, ncut = 4)
+conf.table(data, ncut = ncut)
 }
 \arguments{
 \item{data}{name of the model object; the table of solutions for an application of QCA. Default set to \code{data}.}

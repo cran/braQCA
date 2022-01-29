@@ -17,14 +17,13 @@
 #' @examples
 #' 
 #' qca.data <- rallies[,8:13]
-#' rownames(qca.data)<-rownames(rallies)
-#' truth<-QCA::truthTable(qca.data,outcome="P",sort.by="incl",incl.cut1=0.85,n.cut=1,show.cases=TRUE)
-#' mod1 <- QCA::minimize(truth,details=TRUE,show.cases=TRUE)
 #' 
+#' \dontrun{
 #' brQCA(qca.data,outcome="P",ncut=5,sim=1)
+#' }
 #' @export
 brQCA<-function(qca.data, outcome="OUT", type="crisp", inclcut = "", ncut=2, neg.out=FALSE, sim=10, verbose=TRUE){
-  s.data<-sim.brQCA(qca.data, outcome, inclcut = inclcut, ncut=ncut, sim=sim, neg.out=FALSE, type=TRUE, verbose=verbose)
+  s.data<-sim.brQCA(qca.data, outcome, inclcut = inclcut, ncut=ncut, sim=sim, neg.out=FALSE, type=type, verbose=verbose)
   results<-conf.table(s.data, ncut)
   return(results)
 }
