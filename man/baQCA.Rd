@@ -7,6 +7,7 @@
 baQCA(
   mod,
   sim = 2000,
+  all = TRUE,
   include = c(""),
   row.dom = FALSE,
   omit = c(),
@@ -14,9 +15,11 @@ baQCA(
 )
 }
 \arguments{
-\item{mod}{name of the QCA eqmcc/minimize model object.}
+\item{mod}{name of the QCA model object -- the minimization of the truth table.}
 
 \item{sim}{the number of simulations the baQCA function should run. Default set to \code{sim=2000}.}
+
+\item{all}{logical, whether or not causal conditions AND outcome should be resampled (with replacement). Default set to \code{all=TRUE}.}
 
 \item{include}{[from QCA package] ``A vector of additional output function values to be included in the minimization.'' Default set to \code{include=c("")}.}
 
@@ -27,7 +30,7 @@ baQCA(
 \item{dir.exp}{[from QCA package] ``A vector of directional expectations for deriving intermediate solutions.'' Default set to \code{dir.exp=c()}.}
 }
 \value{
-After some time, this function returns the probability that the data will return a random result given the parameters set by the researcher in the model (configurational n threshold, consistency score threshold, etc), as well a confidence interval around this value. This value is interpreted similarly to a p-value, i.e. a .05 value coincides with a 95\% "confidence level."
+This function returns a value which is the probability of a random QCA result (e.g. a result from random data) given the parameters set by the researcher in the model (configurational n threshold, consistency score threshold, etc), and a confidence interval around this value. This value is interpreted similarly to a p-value."
 }
 \description{
 This function performs the the Bootstrapped Assessment for QCA (baQCA) on a given QCA model object.
@@ -39,5 +42,5 @@ rownames(qca.data)<-rownames(rallies)
 truth<-QCA::truthTable(qca.data,outcome="P",sort.by="incl",incl.cut1=0.85,n.cut=1,show.cases=TRUE)
 mod1 <- QCA::minimize(truth,details=TRUE,show.cases=TRUE)
 
-baQCA(mod1,sim=1) 
+summary(baQCA(mod1,sim=1))
 }
