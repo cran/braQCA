@@ -25,7 +25,6 @@
 baQCA <- function(mod, sim=2000, all=TRUE, include=c(""), row.dom=FALSE, omit=c(), dir.exp=c() ){
   ptm <- proc.time()
   set.seed(1738)
-  
   enter <- ""
   
   nconf <- rownames(mod$IC$incl.cov) #names of the configuration(s)
@@ -121,7 +120,7 @@ baQCA <- function(mod, sim=2000, all=TRUE, include=c(""), row.dom=FALSE, omit=c(
   confList <- sapply(s.qca.data, function(x){ tryCatch( {#trap error
     #minimize(x,  outcome=c("OUT"), n.cut=n.cut, incl.cut1=incl.cut1, incl.cut0=incl.cut0, neg.out=neg.out, relation=relation, explain=mod$options$explain,
     #conditions= c(names(x[,!(names(x) %in% 'OUT')]))),
-    modconfigs <- minimize(x,  outcome=c("OUT"), n.cut=n.cut, incl.cut=incl.cut, neg.out=neg.out, relation=relation, explain=explain,
+    modconfigs <- minimize(x,  outcome=c("OUT"), n.cut=n.cut, incl.cut=incl.cut, neg.out=neg.out, relation=relation, explain=explain, enter=enter,
                             conditions= c(names(x[,!(names(x) %in% 'OUT')]))) 
     #print(modconfigs$initials)
   }
